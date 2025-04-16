@@ -1,0 +1,11 @@
+Flask
+PyMuPDF
+nltk
+pdfminer
+Werkzeug
+python-dotenv
+Flask-PyMongo
+Flask-Bcrypt
+PyJWT
+Flask-Cors
+Flask-Mail

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Account</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .verify-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px;
+      width: 100%;
+      background-color: #283e4a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d2d36;
+    }
+    .message {
+      margin-top: 15px;
+      color: green;
+    }
+    .error {
+      margin-top: 15px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="verify-box">
+    <h2>Email Verification</h2>
+    <p>Enter the verification token you received via email:</p>
+    <input type="text" id="token" placeholder="Enter verification token here" required />
+    <button onclick="verifyToken()">Verify</button>
+    <div id="status" class="message"></div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    async function verifyToken() {
+      const token = document.getElementById('token').value;
+      const status = document.getElementById('status');
+      const error = document.getElementById('error');
+
+      status.textContent = '';
+      error.textContent = '';
+
+      try {
+        const response = await fetch(`/verify/${token}`);
+        const data = await response.text();
+
+        if (response.ok) {
+          status.textContent = '✅ Verification successful! Redirecting to login...';
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
+        } else {
+          error.textContent = data;
+        }
+      } catch (err) {
+        error.textContent = 'Something went wrong. Try again.';
+      }
+    }
+  </script>
+</body>
+</html>

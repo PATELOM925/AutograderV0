@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparison Results</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #283e4a;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+    }
+    section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Comparison Results</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Results</h2>
+      <p><strong>Student Marks:</strong> {{ student_marks }}</p>
+      <p><strong>Student Percentage:</strong> {{ student_percentage }}%</p>
+      <h3>Marks Breakdown:</h3>
+      <ul>
+        {% for mark in marks_obtained_list %}
+          <li>Question {{ loop.index }}: {{ mark }} marks</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </main>
+</body>
+
+<script>
+const result = await response.json();
+window.location.href = `/results?student_marks=${result.student_marks}&student_percentage=${result.student_percentage}&marks_obtained_list=${JSON.stringify(result.marks_obtained_list)}`;
+
+</script>
+</html>
